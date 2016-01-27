@@ -1,6 +1,8 @@
 # Redsys::Rails
 
-TODO: Write a gem description
+Gem Payment platform Redsys
+
+A Ruby gem for communicating with the payment platform of Redsys
 
 ## Installation
 
@@ -20,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+
 
 ## Contributing
 
