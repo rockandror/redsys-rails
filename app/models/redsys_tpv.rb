@@ -6,10 +6,6 @@ class RedsysTpv
   attr_accessor :amount, :language, :order, :currency, :merchant_code, :terminal,
                 :transaction_type, :merchant_url, :url_ok, :url_ko, :sha1, :signature
 
-  def pene
-    "hola pene!"
-  end
-
   def initialize(amount, order, language)
     @amount = (amount * 100).to_i.to_s
     @language = (language == :es) ? '001' : '002'
