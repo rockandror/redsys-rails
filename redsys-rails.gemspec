@@ -8,8 +8,7 @@ Gem::Specification.new do |spec|
   spec.version       = RedsysRails::Rails::VERSION
   spec.authors       = ["guzmanweb"]
   spec.email         = ["carlos@guzmanweb.com"]
-  spec.summary       = %q{TODO: Write a short summary. Required.}
-  spec.description   = %q{TODO: Write a longer description. Optional.}
+  spec.summary       = %q{A Ruby gem for communicating with the payment platform of Redsys}
   spec.homepage      = ""
   spec.license       = "MIT"
 
