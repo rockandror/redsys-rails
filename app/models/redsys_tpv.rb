@@ -11,16 +11,16 @@ class RedsysTpv
     @language = (language == :es) ? '001' : '002'
     @order = order.to_s.rjust(4, '0')
     
-    @currency = Rails.application.secrets.tpv_merchant_currency
-    @merchant_code = Rails.application.secrets.tpv_merchant_code
-    @terminal = Rails.application.secrets.tpv_merchant_terminal
-    @transaction_type = Rails.application.secrets.tpv_merchant_transaction_type
+    @currency = Rails.configuration.redsys_rails[:tpv_merchant_currency]
+    #@merchant_code = Rails.application.secrets.tpv_merchant_code
+    #@terminal = Rails.application.secrets.tpv_merchant_terminal
+    #@transaction_type = Rails.application.secrets.tpv_merchant_transaction_type
     
     #@merchant_url = "#{Rails.application.secrets.tpv_merchant_url}?booking_id=#{booking.id}&language=#{I18n.locale}"
   end
 
   def merchant_params
-    Base64.strict_encode64(merchant_params_json)
+    "#{Base64.strict_encode64(merchant_params_json)} zzzzz"
   end
 
   def merchant_params_json
