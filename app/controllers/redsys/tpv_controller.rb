@@ -16,7 +16,8 @@ module Redsys
       language = params[:language]
       url_ok = params[:url_ok]
       url_ko = params[:url_ko]
-      @tpv = Redsys::Tpv.new(amount, order, language, redsys_notification_url, url_ok, url_ko)
+      merchant_url = redsys_notification_url if defined?(redsys_notification_url)
+      @tpv = Redsys::Tpv.new(amount, order, language, merchant_url, url_ok, url_ko)
     end
     
   end
