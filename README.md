@@ -43,23 +43,12 @@ Un ejemplo:
 redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001')
 ```
 
-### Códigos de idioma
+#### Códigos de idioma
 
-'001' => Castellano
-'002' => Inglés
-'003' => Catalán
-'004' => Francés
-'005' => Alemán
-'006' => Holandés
-'007' => Italiano
-'008' => Sueco
-'009' => Portugués
-'010' => Valenciano
-'011' => Polaco
-'012' => Gallego
-'013' => Euskera
+Castellano-001, Inglés-002, Catalán-003, Francés-004, Alemán-005, Holandés-006, Italiano-007, Sueco-008, Portugués-009,
+Valenciano-010, Polaco-011, Gallego-012 y Euskera-013
 
-### URL de retorno
+#### URL de retorno
 
 Si no ha configurado las url's de retorno para transacción correcta y para transacción fallida en el panel de control de su comercio,
 puede proporcionarlas en la redirección mediante los parámetros url_ok y url_ko.
