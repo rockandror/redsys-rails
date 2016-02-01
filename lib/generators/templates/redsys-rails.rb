@@ -1,5 +1,5 @@
 Rails.configuration.redsys_rails = {
-  tpv_url: '',
+  url: '',
   merchant_code: '',
   merchant_terminal: '',
   merchant_currency: '978', # 978 = Euro

@@ -8,7 +8,7 @@ module Redsys
                   :transaction_type, :merchant_url, :url_ok, :url_ko, :sha1, :signature
 
     def self.tpv_url
-      Rails.configuration.redsys_rails[:tpv_url]
+      Rails.configuration.redsys_rails[:url]
     end
 
     def self.signature_version
@@ -24,16 +24,15 @@ module Redsys
       @language = (language == :es) ? '001' : '002'
       @order = order.to_s.rjust(4, '0')
       
-      @currency = Rails.configuration.redsys_rails[:tpv_merchant_currency]
-      #@merchant_code = Rails.application.secrets.tpv_merchant_code
-      #@terminal = Rails.application.secrets.tpv_merchant_terminal
-      #@transaction_type = Rails.application.secrets.tpv_merchant_transaction_type
-      
-      #@merchant_url = "#{Rails.application.secrets.tpv_merchant_url}?booking_id=#{booking.id}&language=#{I18n.locale}"
+      @currency = Rails.configuration.redsys_rails[:merchant_currency]
+      @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
+      @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
+      @transaction_type = Rails.configuration.redsys_rails[:merchant_transaction_type]
+      @merchant_url = "#{Rails.configuration.redsys_rails[:merchant_url]}?booking_id=#{order}&language=#{language}"
     end
 
     def merchant_params
-      "#{Base64.strict_encode64(merchant_params_json)} zzzzz"
+      "#{Base64.strict_encode64(merchant_params_json)}"
     end
 
     def merchant_params_json
