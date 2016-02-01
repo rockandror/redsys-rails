@@ -9,8 +9,8 @@ module Redsys
     # - language:string => '001' Español, '002' Inglés
     #
     def form
-      amount = params[:amount]
-      order = params[:order]
+      amount = Decimal(params[:amount])
+      order = Integer(params[:order])
       language = params[:language]
       @tpv = Redsys::Tpv.new(amount, order, language)
     end
