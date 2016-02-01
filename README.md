@@ -30,7 +30,8 @@ Por último, configura los parámetros del TPV virutal en [config/initializers/r
 
 ## Utilización
 
-En el controlador donde realice el tratamiento de su pedido, una vez obtenido el id único del mismo, redireccione al formulario de salto del tpv virtual.
+En el controlador donde realice el tratamiento de su pedido, una vez obtenido el id único del mismo, 
+redireccione al formulario de salto del tpv virtual mediante el siguiente código.
 
 ```ruby
 redirect_to redsys_form_path(amount: '', order: '', language: '')
