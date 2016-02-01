@@ -43,6 +43,41 @@ Un ejemplo:
 redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001')
 ```
 
+### Códigos de idioma
+
+'001' => Castellano
+'002' => Inglés
+'003' => Catalán
+'004' => Francés
+'005' => Alemán
+'006' => Holandés
+'007' => Italiano
+'008' => Sueco
+'009' => Portugués
+'010' => Valenciano
+'011' => Polaco
+'012' => Gallego
+'013' => Euskera
+
+### URL de retorno
+
+Si no ha configurado las url's de retorno para transacción correcta y para transacción fallida en el panel de control de su comercio,
+puede proporcionarlas en la redirección mediante los parámetros url_ok y url_ko.
+
+Un ejemplo:
+
+```ruby
+redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001', url_ok: 'http://misite.com/pedido_ok', url_ko: 'http://misite.com/pedido_error')
+```
+
+## Notificación on-line
+
+Instalación del webhook para la notificación online.
+
+    $ rails g redsys:notifications
+
+Falta una descripción más completa, pero el módulo es funcional.
+
 ## Contribuir
 
 1. Fork ( https://github.com/[my-github-username]/redsys-rails/fork )

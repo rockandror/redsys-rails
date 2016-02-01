@@ -15,20 +15,25 @@ module Redsys
       Rails.configuration.redsys_rails[:signature_version]
     end
 
-    def initialize(amount, order, language)
-      amount ||= 0
-      order ||= 0
-      language ||= '001'
+    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil)
+      amount        ||= 0
+      order         ||= 0
+      language      ||= '001'
+      merchant_url  ||= ''
+      url_ok        ||= ''
+      url_ko        ||= ''
 
       @amount = (amount * 100).to_i.to_s
-      @language = (language == :es) ? '001' : '002'
       @order = order.to_s.rjust(4, '0')
-      
+      @language = language
+      @merchant_url = merchant_url
+      @url_ok = url_ok
+      @url_ko = url_ko
+
       @currency = Rails.configuration.redsys_rails[:merchant_currency]
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
       @transaction_type = Rails.configuration.redsys_rails[:merchant_transaction_type]
-      @merchant_url = "#{Rails.configuration.redsys_rails[:merchant_url]}?booking_id=#{order}&language=#{language}"
     end
 
     def merchant_params
