@@ -26,7 +26,7 @@ Genera el inicializador ejecutando el generador:
 
     $ rails g redsys:install
 
-Por último, configura los parámetros del TPV virutal en config/initializers/redsys-rails.rb
+Por último, configura los parámetros del TPV virutal en [config/initializers/redsys-rails.rb](/blob/master/lib/generators/templates/redsys-rails.rb)
 
 ## Utilización
 
