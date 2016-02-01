@@ -4,7 +4,5 @@
   <%= hidden_field_tag 'Ds_Signature', @tpv.merchant_signature %>
 <% end %>
 <script type="text/javascript">
-  $(function() {
-    $('#redsys_tpv_form').submit();
-  });
+  document.getElementById("redsys_tpv_form").submit();
 </script>
