@@ -65,7 +65,10 @@ Instalación del webhook para la notificación online.
 
     $ rails g redsys:notifications
 
-Falta una descripción más completa, pero el módulo es funcional.
+El módulo es funcional y hace accesible una ruta para que el TPV virtual pueda notificar la transacción. Es aquí donde el comercio
+ha de realizar las acciones necesarias, como por ejemplo actualizar el estado de su pedido confirmando el pago.
+
+*Falta una explicación más detallada de esta funcionalidad.*
 
 ## Contribuir
 
