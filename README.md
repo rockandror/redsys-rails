@@ -1,3 +1,5 @@
+**Importante:** Esta gema está actualmente en fase de desarrollo. Se aceptan todo tipo de sugerencias.
+
 # Redsys::Rails
 
 Redsys-Rails es una pequeña solución para integrar de forma rápida y sencilla la pasarela de pago de [Redsys.es](http://www.redsys.es/).
