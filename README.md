@@ -1,8 +1,8 @@
-**Importante:** Esta gema está actualmente en fase de desarrollo. Se aceptan todo tipo de sugerencias.
-
 # Redsys::Rails
 
 Redsys-Rails es una pequeña solución para integrar de forma rápida y sencilla la pasarela de pago de [Redsys.es](http://www.redsys.es/).
+
+**Importante:** Esta gema está actualmente en fase de desarrollo. Se aceptan todo tipo de sugerencias.
 
 ## Requerimientos
 - Esta gema solo proporciona las herramientas necesarias para integrar la opción de redirección desde la página web del comercio al TPV virtual contratado.
