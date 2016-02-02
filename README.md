@@ -28,7 +28,7 @@ Genera el inicializador ejecutando el generador:
 
     $ rails g redsys:install
 
-Por último, configura los parámetros del TPV virutal en [config/initializers/redsys-rails.rb](lib/generators/templates/redsys-rails.rb)
+Por último, configura los parámetros del TPV virtual en [config/initializers/redsys-rails.rb](lib/generators/templates/redsys-rails.rb)
 
 ## Utilización
 
@@ -59,6 +59,24 @@ Un ejemplo:
 
 ```ruby
 redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001', url_ok: 'http://misite.com/pedido_ok', url_ko: 'http://misite.com/pedido_error')
+```
+
+#### Datos de prueba
+
+Con sus credenciales de desarrollo puede realizar pruebas con los siguientes datos:
+
+```
+# Tarjeta correcta
+Num. tarjeta: 4548812049400004
+Caducidad:    12/20
+Código CVV2:  123
+Código CIP:   123456
+```
+
+```
+# Tarjeta errónea
+Num. tarjeta: 1111111111111117
+Caducidad:    12/20
 ```
 
 ## Notificación on-line
