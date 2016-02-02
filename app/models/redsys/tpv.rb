@@ -49,6 +49,7 @@ module Redsys
         :DS_MERCHANT_TRANSACTIONTYPE => @transaction_type,
         :DS_MERCHANT_TERMINAL => @terminal,
         :DS_MERCHANT_MERCHANTURL => @merchant_url,
+        :DS_MERCHANT_CONSUMERLANGUAGE => @language,
         :DS_MERCHANT_URLOK => @url_ok,
         :DS_MERCHANT_URLKO => @url_ko 
       }
