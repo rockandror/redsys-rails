@@ -1,6 +1,7 @@
 require 'openssl'
 require 'base64'
 require 'json'
+require 'rails-i18n'
 
 module Redsys
   class Tpv
@@ -18,7 +19,7 @@ module Redsys
     def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
       amount        ||= 0
       order         ||= 0
-      language      ||= '001'
+      language      ||= language_from_locale
       merchant_url  ||= ''
       url_ok        ||= ''
       url_ko        ||= ''
@@ -38,6 +39,24 @@ module Redsys
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
       @transaction_type = Rails.configuration.redsys_rails[:merchant_transaction_type]
+    end
+
+    def language_from_locale
+      tpv_languages = {
+          'es' => '001',
+          'en' => '002',
+          'ca' => '003',
+          'fr' => '004',
+          'de' => '005',
+          'nl' => '006',
+          'it' => '007',
+          'sv' => '008',
+          'pt' => '009',
+          'pl' => '011',
+          'gl' => '012',
+          'eu' => '013'
+      }
+      return tpv_languages["#{I18n.locale}"]
     end
 
     def merchant_params
