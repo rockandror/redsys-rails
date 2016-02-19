@@ -67,12 +67,27 @@ module Redsys
     end
 
     def merchant_signature
-      key = Base64.strict_decode64(Rails.configuration.redsys_rails[:sha_256_key])
-      key = encrypt_3DES(@order, key)
-      encrypt_mac256(merchant_params, key)
+      calculate_key
+      encrypt_mac256(merchant_params, @key)
+    end
+
+    def self.response_signature(response_data)
+      # For checking the received signature from the gateway
+      calculate_key
+      urlsafe_encrypt_mac256(response_data, @key)
     end
 
     private
+
+      def calculate_key
+        # support function for getting the key both at sending and at reception
+        @key = Base64.urlsafe_decode64(Rails.configuration.redsys_rails[:sha_256_key])
+        @key = encrypt_3DES(@order, @key)
+      end
+
+      def urlsafe_encrypt_mac256(data, key)
+        Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), key, data))
+      end
 
       def encrypt_mac256(data, key)
         Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), key, data))
