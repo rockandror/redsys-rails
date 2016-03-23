@@ -1,6 +1,7 @@
 require 'openssl'
 require 'base64'
 require 'json'
+require 'rails-i18n'
 
 module Redsys
   class Tpv
@@ -15,25 +16,47 @@ module Redsys
       Rails.configuration.redsys_rails[:signature_version]
     end
 
-    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil)
+    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
       amount        ||= 0
       order         ||= 0
-      language      ||= '001'
+      language      ||= language_from_locale
       merchant_url  ||= ''
       url_ok        ||= ''
       url_ko        ||= ''
+      merchant_name ||= ''
+      product_description ||=''
 
       @amount = (amount * 100).to_i.to_s
-      @order = order.to_s.rjust(4, '0')
+      #TODO: there should be a validation of the order format. So far we only make it a string of 12 positions
+      @order = order.to_s.rjust(12, '0')
       @language = language
       @merchant_url = merchant_url
       @url_ok = url_ok
       @url_ko = url_ko
-
+      @merchant_name = merchant_name
+      @product_description = product_description
       @currency = Rails.configuration.redsys_rails[:merchant_currency]
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
       @transaction_type = Rails.configuration.redsys_rails[:merchant_transaction_type]
+    end
+
+    def language_from_locale
+      tpv_languages = {
+          'es' => '001',
+          'en' => '002',
+          'ca' => '003',
+          'fr' => '004',
+          'de' => '005',
+          'nl' => '006',
+          'it' => '007',
+          'sv' => '008',
+          'pt' => '009',
+          'pl' => '011',
+          'gl' => '012',
+          'eu' => '013'
+      }
+      return tpv_languages["#{I18n.locale}"]
     end
 
     def merchant_params
@@ -51,7 +74,9 @@ module Redsys
         :DS_MERCHANT_MERCHANTURL => @merchant_url,
         :DS_MERCHANT_CONSUMERLANGUAGE => @language,
         :DS_MERCHANT_URLOK => @url_ok,
-        :DS_MERCHANT_URLKO => @url_ko 
+        :DS_MERCHANT_URLKO => @url_ko,
+        :DS_MERCHANT_MERCHANTNAME => @merchant_name,
+        :DS_MERCHANT_PRODUCTDESCRIPTION => @product_description
       }
       JSON.generate(merchant_parameters)
     end
@@ -61,12 +86,24 @@ module Redsys
     end
 
     def merchant_signature
-      key = Base64.strict_decode64(Rails.configuration.redsys_rails[:sha_256_key])
-      key = encrypt_3DES(@order, key)
-      encrypt_mac256(merchant_params, key)
+      encrypt_mac256(merchant_params, calculate_key)
+    end
+
+    def response_signature(response_data)
+      # For checking the received signature from the gateway
+      urlsafe_encrypt_mac256(response_data, calculate_key)
     end
 
     private
+
+      def calculate_key
+        # support function for getting the key both at sending and at reception
+        encrypt_3DES(@order, Base64.urlsafe_decode64(Rails.configuration.redsys_rails[:sha_256_key]))
+      end
+
+      def urlsafe_encrypt_mac256(data, key)
+        Base64.urlsafe_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), key, data))
+      end
 
       def encrypt_mac256(data, key)
         Base64.strict_encode64(OpenSSL::HMAC.digest(OpenSSL::Digest.new('sha256'), key, data))
