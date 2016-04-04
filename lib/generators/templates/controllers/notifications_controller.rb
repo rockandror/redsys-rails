@@ -35,15 +35,20 @@ module Redsys
         tpv_tx.card_type = json_params["Ds_Card_Type"] unless json_params["Ds_Card_Type"].nil? || json_params["Ds_Card_Type"].blank?
         tpv_tx.save
 =end
-        if json_params["Ds_Response"].present? && (json_params["Ds_Response"].to_i >= 0 && json_params["Ds_Response"].to_i <= 99)
-          # The transaction result is ok. Register the payment here
+        if json_params["Ds_Response"].present?
+          if (tpv_tx.response_code >= 0 && tpv_tx.response_code <= 99)
+            # The transaction result is ok. Register the payment here
+          end
           status = :ok
         else
-          # The transaction failed, handle the exception however you want
+          # The transaction failed although the signature was right because there was no Ds_Response, handle the exception however you want
           status = :bad_request
         end
+      else
+        # The transaction failed due to an error in the signature, handle the exception however you want
+        status = :bad_request
       end
-      render nothing: true, layout: false, status: status
+      render :nothing => true, :layout => false, :status => status
     end
   end
 end
