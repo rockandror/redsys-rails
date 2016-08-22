@@ -88,6 +88,13 @@ Instalación del webhook para la notificación online.
 El módulo es funcional y hace accesible una ruta para que el TPV virtual pueda notificar la transacción. Es aquí donde el comercio
 ha de realizar las acciones necesarias, como por ejemplo actualizar el estado de su pedido confirmando el pago.
 
+rails g redsys:notifications que te creará un controlador 'notifications_controller' con una acción post 'notification'. La entidad financiera realizará una llamada a esa ruta cuando el usuario realice el pago, ahí podrás actualizar el pedido, enviar un email al usuario... etc..
+
+Si quieres debuggear lo que ocurre en ese callback te sugiero utilices una aplicación estilo ngrok que te redirecciona localhost a una dirección accesible desde el exterior y en el formulario de salto a la pasarela sustituyas la url de notifications por la generada. Un ejemplo:
+redsys_form_path(amount: @amount, order: @order.id, merchant_url: 'http://5696c509.ngrok.io/redsys/notification')
+
+Cuando lo subas a producción acuérdate de quitar el parámetro merchant_url para que pille la url por defecto.
+
 *Falta una explicación más detallada de esta funcionalidad.*
 
 ## Contribuir
