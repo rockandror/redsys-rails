@@ -42,13 +42,17 @@ redirect_to redsys_form_path(amount: '', order: '', language: '')
 Un ejemplo:
 
 ```ruby
-redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001')
+redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001', currency: '978')
 ```
 
 #### Códigos de idioma
 
 Castellano-001, Inglés-002, Catalán-003, Francés-004, Alemán-005, Holandés-006, Italiano-007, Sueco-008, Portugués-009,
 Valenciano-010, Polaco-011, Gallego-012 y Euskera-013
+
+#### Códigos de divisa
+
+'978' Euro, '840' Dólares, '826' Libras, '392' Yenes ...
 
 #### URL de retorno
 
@@ -58,7 +62,7 @@ puede proporcionarlas en la redirección mediante los parámetros url_ok y url_k
 Un ejemplo:
 
 ```ruby
-redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001', url_ok: 'http://misite.com/pedido_ok', url_ko: 'http://misite.com/pedido_error')
+redirect_to redsys_form_path(amount: '20.35', order: '0001', language: '001', currency: '978', url_ok: 'http://misite.com/pedido_ok', url_ko: 'http://misite.com/pedido_error')
 ```
 
 #### Datos de prueba

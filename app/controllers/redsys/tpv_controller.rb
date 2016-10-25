@@ -9,6 +9,7 @@ module Redsys
     # the rest up to 12 positions will be ASCII characters from these ranges:
     # 30 (0) - 39 (9), 65 (A) - 90 (Z), 97 (a) - 122 (z)
     # - language:string => '001' Español, '002' Inglés...
+    # - currency:string => '978' Euro, '840' Dólares, '826' Libras, '392' Yenes)
     # - url_ok:string => url de vuelta del tpv para pago correcto
     # - url_ko:string => url de vuelta del tpv cuando ocurre un error
     #
@@ -16,12 +17,13 @@ module Redsys
       amount = BigDecimal.new(params[:amount] || '0')
       order = params[:order] || '0'
       language = params[:language]
+      currency = params[:currency]
       url_ok = params[:url_ok]
       url_ko = params[:url_ko]
       merchant_url = params[:merchant_url] || redsys_notification_url if defined?(redsys_notification_url)
       merchant_name = params[:merchant_name]
       product_description = params[:product_description]
-      @tpv = Redsys::Tpv.new(amount, order, language, merchant_url, url_ok, url_ko, merchant_name, product_description)
+      @tpv = Redsys::Tpv.new(amount, order, language, currency, merchant_url, url_ok, url_ko, merchant_name, product_description)
     end
     
   end
