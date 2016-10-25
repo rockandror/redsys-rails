@@ -6,8 +6,8 @@ require 'redsys-rails/version'
 Gem::Specification.new do |spec|
   spec.name          = "redsys-rails"
   spec.version       = RedsysRails::Rails::VERSION
-  spec.authors       = ["guzmanweb", "Asier Azaceta"]
-  spec.email         = ["carlos@guzmanweb.com", "asier.azaceta@techabout.es"]
+  spec.authors       = ["guzmanweb", "Asier Azaceta", "taitus"]
+  spec.email         = ["carlos@guzmanweb.com", "asier.azaceta@techabout.es", "sebastia.roig@gmail.com"]
   spec.summary       = %q{A Ruby gem for communicating with the payment platform of Redsys}
   spec.homepage      = "https://github.com/rockandror/redsys-rails"
   spec.license       = "MIT"

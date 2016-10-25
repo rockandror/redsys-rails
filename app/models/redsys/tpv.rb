@@ -16,10 +16,11 @@ module Redsys
       Rails.configuration.redsys_rails[:signature_version]
     end
 
-    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
+    def initialize(amount, order, language, currency, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
       amount        ||= 0
       order         ||= 0
       language      ||= language_from_locale
+      currency      ||= Rails.configuration.redsys_rails[:merchant_currency]
       merchant_url  ||= ''
       url_ok        ||= ''
       url_ko        ||= ''
@@ -35,7 +36,8 @@ module Redsys
       @url_ko = url_ko
       @merchant_name = merchant_name
       @product_description = product_description
-      @currency = Rails.configuration.redsys_rails[:merchant_currency]
+      # @currency = Rails.configuration.redsys_rails[:merchant_currency]
+      @currency = currency
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
       @transaction_type = Rails.configuration.redsys_rails[:merchant_transaction_type]
