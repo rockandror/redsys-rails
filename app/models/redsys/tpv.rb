@@ -1,7 +1,6 @@
 require 'openssl'
 require 'base64'
 require 'json'
-require 'rails-i18n'
 
 module Redsys
   class Tpv
@@ -92,6 +91,15 @@ module Redsys
     def response_signature(response_data)
       # For checking the received signature from the gateway
       urlsafe_encrypt_mac256(response_data, calculate_key)
+    end
+
+    def to_json
+      {
+        url: Rails.configuration.redsys_rails[:url],
+        signature_version: Redsys::Tpv.signature_version,
+        merchant_params: merchant_params,
+        merchant_signature: merchant_signature
+      }
     end
 
     private

@@ -13,7 +13,7 @@ module Redsys
     # - url_ko:string => url de vuelta del tpv cuando ocurre un error
     #
     def form
-      amount = BigDecimal.new(params[:amount] || '0')
+      amount = BigDecimal(params[:amount] || '0')
       order = params[:order] || '0'
       language = params[:language]
       url_ok = params[:url_ok]
@@ -21,7 +21,14 @@ module Redsys
       merchant_url = params[:merchant_url] || redsys_notification_url if defined?(redsys_notification_url)
       merchant_name = params[:merchant_name]
       product_description = params[:product_description]
+
       @tpv = Redsys::Tpv.new(amount, order, language, merchant_url, url_ok, url_ko, merchant_name, product_description)
+
+      if params[:angular_request].present? && params[:angular_request] == "true"
+        render json: { tpv_form: @tpv.to_json }
+      else
+        render :form
+      end
     end
     
   end
