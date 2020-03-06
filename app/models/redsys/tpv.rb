@@ -16,7 +16,7 @@ module Redsys
       Rails.configuration.redsys_rails[:signature_version]
     end
 
-    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil)
+    def initialize(amount, order, language, merchant_url = nil, url_ok = nil, url_ko = nil, merchant_name = nil, product_description = nil, bizum = false)
       amount        ||= 0
       order         ||= 0
       language      ||= language_from_locale
@@ -35,6 +35,7 @@ module Redsys
       @url_ko = url_ko
       @merchant_name = merchant_name
       @product_description = product_description
+      @bizum = bizum
       @currency = Rails.configuration.redsys_rails[:merchant_currency]
       @merchant_code = Rails.configuration.redsys_rails[:merchant_code]
       @terminal = Rails.configuration.redsys_rails[:merchant_terminal]
@@ -78,6 +79,10 @@ module Redsys
         :DS_MERCHANT_MERCHANTNAME => @merchant_name,
         :DS_MERCHANT_PRODUCTDESCRIPTION => @product_description
       }
+      if @bizum
+        merchant_parameters[:DS_MERCHANT_PAYMETHODS] = 'z'
+        merchant_parameters[:DS_MERCHANT_IDENTIFIER] = 'REQUIRED'
+      end
       JSON.generate(merchant_parameters)
     end
 
